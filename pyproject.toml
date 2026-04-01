@@ -3,7 +3,7 @@ name = "pg-presto"
 version = "0.1.0"
 description = "A tool to convert PostgreSQL SQL files to Presto/Athena SQL."
 readme = "README.md"
-authors = [{ name = "Your Name", email = "your.email@example.com" }]
+authors = [{ name = "William Allen", email = "wallentx@linux.com" }]
 requires-python = ">=3.9"
 dependencies = [
     "sqlglot>=20.0.0",
