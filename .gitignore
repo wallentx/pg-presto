@@ -16,3 +16,7 @@ uv.lock
 dist/
 build/
 *.egg-info/
+
+# pg-presto generated output
+examples/report.json
+examples/athena/
