@@ -1,0 +1,81 @@
+[
+  {
+    "source": "/data/data/com.termux/files/home/src/pg-presto/examples/postgresql/user_events.sql",
+    "destination": "/data/data/com.termux/files/home/src/pg-presto/examples/athena/user_events.sql",
+    "success": true,
+    "error": null,
+    "warnings": []
+  },
+  {
+    "source": "/data/data/com.termux/files/home/src/pg-presto/examples/postgresql/billing.sql",
+    "destination": "/data/data/com.termux/files/home/src/pg-presto/examples/athena/billing.sql",
+    "success": true,
+    "error": null,
+    "warnings": []
+  },
+  {
+    "source": "/data/data/com.termux/files/home/src/pg-presto/examples/postgresql/complex_report.sql",
+    "destination": "/data/data/com.termux/files/home/src/pg-presto/examples/athena/complex_report.sql",
+    "success": true,
+    "error": null,
+    "warnings": []
+  },
+  {
+    "source": "/data/data/com.termux/files/home/src/pg-presto/examples/postgresql/advanced_arrays.sql",
+    "destination": "/data/data/com.termux/files/home/src/pg-presto/examples/athena/advanced_arrays.sql",
+    "success": true,
+    "error": null,
+    "warnings": []
+  },
+  {
+    "source": "/data/data/com.termux/files/home/src/pg-presto/examples/postgresql/time_series.sql",
+    "destination": "/data/data/com.termux/files/home/src/pg-presto/examples/athena/time_series.sql",
+    "success": true,
+    "error": null,
+    "warnings": []
+  },
+  {
+    "source": "/data/data/com.termux/files/home/src/pg-presto/examples/postgresql/regex_parsing.sql",
+    "destination": "/data/data/com.termux/files/home/src/pg-presto/examples/athena/regex_parsing.sql",
+    "success": true,
+    "error": null,
+    "warnings": []
+  },
+  {
+    "source": "/data/data/com.termux/files/home/src/pg-presto/examples/postgresql/jsonb_processing.sql",
+    "destination": "/data/data/com.termux/files/home/src/pg-presto/examples/athena/jsonb_processing.sql",
+    "success": true,
+    "error": null,
+    "warnings": [
+      "DDL TRAP: Type 'JSONB' is not supported in Athena. Use JSON or VARCHAR."
+    ]
+  },
+  {
+    "source": "/data/data/com.termux/files/home/src/pg-presto/examples/postgresql/limitations.sql",
+    "destination": "/data/data/com.termux/files/home/src/pg-presto/examples/athena/limitations.sql",
+    "success": true,
+    "error": null,
+    "warnings": [
+      "UPDATE statements are generally not supported in Athena (except for transactional tables).",
+      "DELETE statements are generally not supported in Athena (except for transactional tables).",
+      "Array initializations with more than 254 arguments are not supported in Athena.",
+      "ORDER BY LIMIT > 2147483647 is not supported in Athena."
+    ]
+  },
+  {
+    "source": "/data/data/com.termux/files/home/src/pg-presto/examples/postgresql/traps.sql",
+    "destination": "/data/data/com.termux/files/home/src/pg-presto/examples/athena/traps.sql",
+    "success": true,
+    "error": null,
+    "warnings": [
+      "SEMANTIC TRAP: EXTRACT(DOW) in Athena returns 1-7 (Mon-Sun), unlike PostgreSQL's 0-6 (Sun-Sat).",
+      "DDL TRAP: Type 'SERIAL' is not supported in Athena. Use INT/BIGINT and sequence strategies.",
+      "DDL TRAP: Type 'UUID' is not supported in Athena. Use VARCHAR.",
+      "DDL TRAP: Type 'JSONB' is not supported in Athena. Use JSON or VARCHAR.",
+      "SEMANTIC TRAP: GREATEST returns NULL if ANY argument is NULL in Athena. PostgreSQL ignores NULLs.",
+      "DDL TRAP: 'PRIMARY KEY' constraints are not supported in Athena.",
+      "DML TRAP: 'ON CONFLICT' is not supported in Athena. Use MERGE INTO for upserts (Iceberg only).",
+      "DML TRAP: 'RETURNING' clauses are not supported in Athena."
+    ]
+  }
+]
