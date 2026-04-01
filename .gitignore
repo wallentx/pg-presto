@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv/
+env/
+venv/
+ENV/
+
+# uv
+uv.lock
+# (Note: sometimes we WANT to commit uv.lock, but usually we do)
+
+# Build
+dist/
+build/
+*.egg-info/
