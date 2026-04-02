@@ -1,6 +1,6 @@
-.PHONY: test lint format typecheck all
+.PHONY: test lint format typecheck all build clean
 
-all: lint typecheck test
+all: lint typecheck test build
 
 test:
 	uv run pytest
@@ -13,3 +13,10 @@ format:
 
 typecheck:
 	uv run mypy src
+
+build: clean
+	mkdir -p dist
+	uv run shiv -c pg2athena -o dist/pg2athena .
+
+clean:
+	rm -rf dist/

@@ -20,6 +20,7 @@ build-backend = "hatchling.build"
 dev = [
     "mypy>=1.19.1",
     "pytest>=8.4.2",
+    "shiv>=1.0.8",
 ]
 
 [tool.ruff]
