@@ -1,0 +1,2 @@
+PASS-THROUGH TRAP: PostgreSQL function 'JSONB_EACH_TEXT' is not automatically rewritten for Athena. Review manually.
+PASS-THROUGH TRAP: PostgreSQL function 'JSONB_OBJECT_KEYS' is not automatically rewritten for Athena. Review manually.

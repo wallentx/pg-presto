@@ -1,7 +1,7 @@
 [project]
-name = "pg-presto"
+name = "pg-aegis"
 version = "0.1.0"
-description = "A tool to convert PostgreSQL SQL files to Presto/Athena SQL."
+description = "A tool to convert PostgreSQL SQL files to Athena-compatible SQL."
 readme = "README.md"
 authors = [{ name = "William Allen", email = "wallentx@linux.com" }]
 requires-python = ">=3.9"
@@ -10,7 +10,7 @@ dependencies = [
 ]
 
 [project.scripts]
-pg2athena = "pg_presto.cli:main"
+pg-aegis = "pg_aegis.cli:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -38,4 +38,3 @@ warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
 ignore_missing_imports = true
-

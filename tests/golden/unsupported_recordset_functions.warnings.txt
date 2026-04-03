@@ -1,0 +1,2 @@
+PASS-THROUGH TRAP: PostgreSQL function 'JSONB_TO_RECORDSET' is not automatically rewritten for Athena. Review manually.
+PASS-THROUGH TRAP: PostgreSQL function 'GENERATE_SUBSCRIPTS' is not automatically rewritten for Athena. Review manually.

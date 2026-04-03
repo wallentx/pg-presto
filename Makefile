@@ -16,7 +16,7 @@ typecheck:
 
 build: clean
 	mkdir -p dist
-	uv run shiv -c pg2athena -o dist/pg2athena .
+	uv run shiv -c pg-aegis -o dist/pg-aegis .
 
 clean:
 	rm -rf dist/

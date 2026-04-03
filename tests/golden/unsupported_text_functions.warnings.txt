@@ -1,0 +1,3 @@
+PASS-THROUGH TRAP: PostgreSQL function 'REGEXP_SPLIT_TO_TABLE' is not automatically rewritten for Athena. Review manually.
+PASS-THROUGH TRAP: PostgreSQL function 'REGEXP_MATCHES' is not automatically rewritten for Athena. Review manually.
+PASS-THROUGH TRAP: PostgreSQL function 'STRING_TO_ARRAY' is not automatically rewritten for Athena. Review manually.
