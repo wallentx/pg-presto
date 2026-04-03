@@ -79,7 +79,7 @@ def test_convert_jsonb_contains():
 
 
 def test_convert_jsonb_contains_nested_expression():
-    sql = 'SELECT * FROM docs WHERE (metadata->\'nested\') @> \'{"a":"b"}\'::jsonb;'
+    sql = "SELECT * FROM docs WHERE (metadata->'nested') @> '{\"a\":\"b\"}'::jsonb;"
     converted = convert_sql(sql, apply_rewrites=True)
     assert "JSON_EXTRACT(METADATA, '$.NESTED')" in converted.upper()
     assert 'LIKE \'%{"A":"B"}%\'' in converted.upper()
@@ -105,8 +105,7 @@ def test_validate_limitations_warns_on_unsupported_jsonb_each_text():
     warnings = validate_athena_limitations(sql, convert_sql(sql, apply_rewrites=True))
     assert (
         "PASS-THROUGH TRAP: PostgreSQL function "
-        "'JSONB_EACH_TEXT' is not automatically rewritten for Athena. Review manually."
-        in warnings
+        "'JSONB_EACH_TEXT' is not automatically rewritten for Athena. Review manually." in warnings
     )
 
 
@@ -115,8 +114,7 @@ def test_validate_limitations_warns_on_unsupported_jsonb_object_keys():
     warnings = validate_athena_limitations(sql, convert_sql(sql, apply_rewrites=True))
     assert (
         "PASS-THROUGH TRAP: PostgreSQL function "
-        "'JSONB_OBJECT_KEYS' is not automatically rewritten for Athena. Review manually."
-        in warnings
+        "'JSONB_OBJECT_KEYS' is not automatically rewritten for Athena. Review manually." in warnings
     )
 
 
@@ -125,8 +123,7 @@ def test_validate_limitations_warns_on_unsupported_jsonb_to_recordset():
     warnings = validate_athena_limitations(sql, convert_sql(sql, apply_rewrites=True))
     assert (
         "PASS-THROUGH TRAP: PostgreSQL function "
-        "'JSONB_TO_RECORDSET' is not automatically rewritten for Athena. Review manually."
-        in warnings
+        "'JSONB_TO_RECORDSET' is not automatically rewritten for Athena. Review manually." in warnings
     )
 
 
@@ -135,8 +132,7 @@ def test_validate_limitations_warns_on_unsupported_generate_subscripts():
     warnings = validate_athena_limitations(sql, convert_sql(sql, apply_rewrites=True))
     assert (
         "PASS-THROUGH TRAP: PostgreSQL function "
-        "'GENERATE_SUBSCRIPTS' is not automatically rewritten for Athena. Review manually."
-        in warnings
+        "'GENERATE_SUBSCRIPTS' is not automatically rewritten for Athena. Review manually." in warnings
     )
 
 
@@ -145,8 +141,7 @@ def test_validate_limitations_warns_on_unsupported_regexp_split_to_table():
     warnings = validate_athena_limitations(sql, convert_sql(sql, apply_rewrites=True))
     assert (
         "PASS-THROUGH TRAP: PostgreSQL function "
-        "'REGEXP_SPLIT_TO_TABLE' is not automatically rewritten for Athena. Review manually."
-        in warnings
+        "'REGEXP_SPLIT_TO_TABLE' is not automatically rewritten for Athena. Review manually." in warnings
     )
 
 
@@ -155,8 +150,7 @@ def test_validate_limitations_warns_on_unsupported_string_to_array():
     warnings = validate_athena_limitations(sql, convert_sql(sql, apply_rewrites=True))
     assert (
         "PASS-THROUGH TRAP: PostgreSQL function "
-        "'STRING_TO_ARRAY' is not automatically rewritten for Athena. Review manually."
-        in warnings
+        "'STRING_TO_ARRAY' is not automatically rewritten for Athena. Review manually." in warnings
     )
 
 
@@ -165,8 +159,7 @@ def test_validate_limitations_warns_on_unsupported_regexp_matches():
     warnings = validate_athena_limitations(sql, convert_sql(sql, apply_rewrites=True))
     assert (
         "PASS-THROUGH TRAP: PostgreSQL function "
-        "'REGEXP_MATCHES' is not automatically rewritten for Athena. Review manually."
-        in warnings
+        "'REGEXP_MATCHES' is not automatically rewritten for Athena. Review manually." in warnings
     )
 
 
@@ -345,10 +338,7 @@ def test_example_goldens():
 
 def test_unsupported_json_table_functions_example_emits_warnings():
     example_path = (
-        Path(__file__).resolve().parents[1]
-        / "examples"
-        / "postgresql"
-        / "unsupported_json_table_functions.sql"
+        Path(__file__).resolve().parents[1] / "examples" / "postgresql" / "unsupported_json_table_functions.sql"
     )
     input_sql = example_path.read_text(encoding="utf-8")
 
@@ -357,17 +347,13 @@ def test_unsupported_json_table_functions_example_emits_warnings():
     assert result.success is True
     assert (
         "PASS-THROUGH TRAP: PostgreSQL function "
-        "'JSONB_EACH_TEXT' is not automatically rewritten for Athena. Review manually."
-        in result.warnings
+        "'JSONB_EACH_TEXT' is not automatically rewritten for Athena. Review manually." in result.warnings
     )
 
 
 def test_unsupported_recordset_functions_example_emits_warnings():
     example_path = (
-        Path(__file__).resolve().parents[1]
-        / "examples"
-        / "postgresql"
-        / "unsupported_recordset_functions.sql"
+        Path(__file__).resolve().parents[1] / "examples" / "postgresql" / "unsupported_recordset_functions.sql"
     )
     input_sql = example_path.read_text(encoding="utf-8")
 
@@ -376,18 +362,12 @@ def test_unsupported_recordset_functions_example_emits_warnings():
     assert result.success is True
     assert (
         "PASS-THROUGH TRAP: PostgreSQL function "
-        "'JSONB_TO_RECORDSET' is not automatically rewritten for Athena. Review manually."
-        in result.warnings
+        "'JSONB_TO_RECORDSET' is not automatically rewritten for Athena. Review manually." in result.warnings
     )
 
 
 def test_unsupported_text_functions_example_emits_warnings():
-    example_path = (
-        Path(__file__).resolve().parents[1]
-        / "examples"
-        / "postgresql"
-        / "unsupported_text_functions.sql"
-    )
+    example_path = Path(__file__).resolve().parents[1] / "examples" / "postgresql" / "unsupported_text_functions.sql"
     input_sql = example_path.read_text(encoding="utf-8")
 
     result = process_sql(input_sql, str(example_path), apply_rewrites=True)
@@ -395,16 +375,13 @@ def test_unsupported_text_functions_example_emits_warnings():
     assert result.success is True
     assert (
         "PASS-THROUGH TRAP: PostgreSQL function "
-        "'REGEXP_SPLIT_TO_TABLE' is not automatically rewritten for Athena. Review manually."
-        in result.warnings
+        "'REGEXP_SPLIT_TO_TABLE' is not automatically rewritten for Athena. Review manually." in result.warnings
     )
     assert (
         "PASS-THROUGH TRAP: PostgreSQL function "
-        "'STRING_TO_ARRAY' is not automatically rewritten for Athena. Review manually."
-        in result.warnings
+        "'STRING_TO_ARRAY' is not automatically rewritten for Athena. Review manually." in result.warnings
     )
     assert (
         "PASS-THROUGH TRAP: PostgreSQL function "
-        "'REGEXP_MATCHES' is not automatically rewritten for Athena. Review manually."
-        in result.warnings
+        "'REGEXP_MATCHES' is not automatically rewritten for Athena. Review manually." in result.warnings
     )

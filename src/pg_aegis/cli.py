@@ -171,9 +171,7 @@ def rewrite_common_postgresisms(expression: exp.Expression) -> exp.Expression:
 
 def convert_sql(sql: str, *, apply_rewrites: bool) -> str:
     if not apply_rewrites:
-        return ";\n\n".join(
-            sqlglot.transpile(sql, read="postgres", write=TARGET_DIALECT, identify=False, pretty=True)
-        )
+        return ";\n\n".join(sqlglot.transpile(sql, read="postgres", write=TARGET_DIALECT, identify=False, pretty=True))
 
     statements = [rewrite_common_postgresisms(statement) for statement in _parse_sql_expressions(sql, read="postgres")]
     return ";\n\n".join(statement.sql(dialect=TARGET_DIALECT, identify=False, pretty=True) for statement in statements)
