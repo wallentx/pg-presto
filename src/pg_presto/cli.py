@@ -75,9 +75,13 @@ def validate_athena_limitations(original_sql: str, transpiled_sql: str) -> list[
 
         # Unsupported statements
         if isinstance(expression, exp.Update):
-            warnings.append("UPDATE statements are generally not supported in Athena (except for transactional tables).")
+            warnings.append(
+                "UPDATE statements are generally not supported in Athena (except for transactional tables)."
+            )
         if isinstance(expression, exp.Delete):
-            warnings.append("DELETE statements are generally not supported in Athena (except for transactional tables).")
+            warnings.append(
+                "DELETE statements are generally not supported in Athena (except for transactional tables)."
+            )
 
         # LIMIT clause maximum with ORDER BY
         if isinstance(expression, exp.Select):
@@ -98,17 +102,16 @@ def validate_athena_limitations(original_sql: str, transpiled_sql: str) -> list[
         for extract_node in expression.find_all(exp.Extract):
             if str(extract_node.this).upper() in ("DOW", "ISODOW", "DAYOFWEEK"):
                 warnings.append(
-                    "SEMANTIC TRAP: EXTRACT(DOW) in Athena returns 1-7 (Mon-Sun), "
-                    "unlike PostgreSQL's 0-6 (Sun-Sat)."
+                    "SEMANTIC TRAP: EXTRACT(DOW) in Athena returns 1-7 (Mon-Sun), unlike PostgreSQL's 0-6 (Sun-Sat)."
                 )
 
         for g_node in expression.find_all(exp.Greatest):
             warnings.append(
-                "SEMANTIC TRAP: GREATEST returns NULL if ANY argument is NULL in Athena. " "PostgreSQL ignores NULLs."
+                "SEMANTIC TRAP: GREATEST returns NULL if ANY argument is NULL in Athena. PostgreSQL ignores NULLs."
             )
         for l_node in expression.find_all(exp.Least):
             warnings.append(
-                "SEMANTIC TRAP: LEAST returns NULL if ANY argument is NULL in Athena. " "PostgreSQL ignores NULLs."
+                "SEMANTIC TRAP: LEAST returns NULL if ANY argument is NULL in Athena. PostgreSQL ignores NULLs."
             )
 
         # DDL Traps
@@ -130,7 +133,7 @@ def validate_athena_limitations(original_sql: str, transpiled_sql: str) -> list[
         for insert_node in expression.find_all(exp.Insert):
             if insert_node.args.get("conflict"):
                 warnings.append(
-                    "DML TRAP: 'ON CONFLICT' is not supported in Athena. " "Use MERGE INTO for upserts (Iceberg only)."
+                    "DML TRAP: 'ON CONFLICT' is not supported in Athena. Use MERGE INTO for upserts (Iceberg only)."
                 )
             if insert_node.args.get("returning"):
                 warnings.append("DML TRAP: 'RETURNING' clauses are not supported in Athena.")
@@ -208,13 +211,13 @@ def main() -> int:
             if args.output == "-":
                 print("error: output must be a directory when source is a directory", file=sys.stderr)
                 return 2
-            
+
             out_root = Path(args.output).resolve()
             for sql_file in iter_sql_files(src_path):
                 rel = sql_file.relative_to(src_path)
                 dst = out_root / rel
                 dst.parent.mkdir(parents=True, exist_ok=True)
-                
+
                 input_sql = sql_file.read_text(encoding="utf-8")
                 with dst.open("w", encoding="utf-8") as f:
                     res = process_sql(input_sql, str(sql_file), apply_rewrites, f)
@@ -240,7 +243,7 @@ def main() -> int:
 
     # Only print summary to stderr if we are using STDOUT for SQL
     summary_stream = sys.stderr if args.output == "-" else sys.stdout
-    
+
     if len(results) > 1 or args.output != "-":
         print(f"converted: {success_count}", file=summary_stream)
         print(f"warnings:  {warning_count}", file=summary_stream)
